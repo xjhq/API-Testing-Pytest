@@ -1,0 +1,7 @@
+# Auto detect text files and perform LF normalization
+#配置会自动检测文本文件并执行LF标准化，
+#作用：1.跨平台行尾一致性，
+#      2.自动处理，Git会自动识别文本文件(而非二进制文件)并处理他们的行尾。
+#      3.规范化存储，所有文件都在仓库中使用LF格式
+#LF风格：以\n结束的行尾
+* text=auto
