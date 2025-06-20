@@ -34,11 +34,11 @@ jobs:
           # 生成JUnit XML报告(兼容性保障)
           pytest Tests/ --junitxml=reports/junit.xml
           # 生成Allure报告(增强可视化)
-          pytest Tests/ --alluredir=report/allure-results
+          pytest Tests/ --alluredir=reports/allure-results
 
       - name: Generate Allure Report
         run: |
-          allure generate report/allure-results -o report/allure-report --clean
+          allure generate reports/allure-results -o reports/allure-report --clean
           
       # 步骤5: 上传所有测试结果
       - name: Upload artifacts
@@ -47,5 +47,5 @@ jobs:
         with:
           name: test-reports
           path: |
-            reports/junit.XML
+            reports/junit.xml
             reports/allure-report
