@@ -2,7 +2,7 @@
  
 [![API Tests with Pytest](https://github.com/ghoshasish99/API-Testing-Pytest/actions/workflows/pytest.yml/badge.svg)](https://github.com/ghoshasish99/API-Testing-Pytest/actions/workflows/pytest.yml)
 
-#### Python是一个成熟的全功能Python测试框架，可以帮助你编写和运行Python测试。
+#### Pytest是一个成熟的全功能Python测试框架，可以帮助你编写和运行Python测试。
 
 #### `requests`模块允许您使用Python进行HTTP请求。
 
@@ -33,5 +33,10 @@ def test_fetch_user() :
 
 如果您的测试包含在文件夹`Tests`中,请运行以下命令：`pytest Tests` 
 
-要生成XML格式的测试结果，请运行以下命令：`pytest Tests --junitxml="result.xml"`
+
+要生成XML格式的测试结果，请运行以下命令：`pytest Tests --junitxml="reports/junit.xml"`
+运行测试并生成Allure数据：`pytest Tests --alluredir="reports/allure-results"`
+运行测试并生成Allure报告：`allure serve reports/allure-results`
+或生成静态报告：`allure generate reports/allure-results -o reports/allure-report --clean` 
+
 有关Pytest的更多信息，请访问这里(https://docs.pytest.org/en/stable/)

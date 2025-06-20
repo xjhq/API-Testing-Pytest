@@ -3,3 +3,5 @@ jsonpath==0.82
 requests==2.24.0
 
 pytest==8.3.5
+
+allure-pytest==2.13.2

@@ -1,34 +1,51 @@
-name: API Tests with Pytest
+name: API Tests with Pytest  # 工作流程名称
 
-on:
+on:  # 触发条件
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
+  build:  # 任务名称
+    runs-on: ubuntu-latest  # 运行环境
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.8
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        
-    - name: Test with pytest
-      run: |
-        pytest Tests --junitxml="result.xml"
-        
-    - uses: actions/upload-artifact@v2
-      if: ${{ always() }}
-      with:
-        name: test-artifacts
-        path: result.xml    
+      # 步骤1: 检出代码
+      - uses: actions/checkout@v4
+
+      # 步骤2: 设置Python环境
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+
+      # 步骤3: 安装依赖
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          sudo apt-get install allure #安装Allure命令行工具
+
+      # 步骤4: 运行测试
+      - name: Run tests 
+        run: |
+          # 生成JUnit XML报告(兼容性保障)
+          pytest Tests/ --junitxml=reports/junit.xml
+          # 生成Allure报告(增强可视化)
+          pytest Tests/ --alluredir=report/allure-results
+
+      - name: Generate Allure Report
+        run: |
+          allure generate report/allure-results -o report/allure-report --clean
+          
+      # 步骤5: 上传所有测试结果
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        if: always()  # 无论测试成功失败都上传
+        with:
+          name: test-reports
+          path: |
+            reports/junit.XML
+            reports/allure-report
