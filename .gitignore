@@ -123,3 +123,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Allure报告
+reports/allure-results/*
+reports/allure-report/
+!reports/allure-results/.keep
