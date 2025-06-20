@@ -42,7 +42,7 @@ jobs:
           
       # 步骤5: 上传所有测试结果
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()  # 无论测试成功失败都上传
         with:
           name: test-reports
